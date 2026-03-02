@@ -161,11 +161,21 @@ html {
   from { clip-path: inset(100% 0 0 0); }
   to   { clip-path: inset(0 0 0 0); }
 }
-.reveal-image {
+/* Default: visible. JS adds .is-clipped after mount; .is-visible triggers animation. */
+.reveal-image.is-clipped {
   clip-path: inset(100% 0 0 0);
 }
 .reveal-image.is-visible {
   animation: reveal-up 0.9s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+}
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .reveal-image,
+  .reveal-image.is-clipped,
+  .reveal-image.is-visible {
+    clip-path: none !important;
+    animation: none !important;
+  }
 }
 
 /* Premium button hover lift */
